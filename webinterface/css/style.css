@@ -1,0 +1,65 @@
+html{
+    background-color: #18123E;
+    
+}
+html, body {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+}
+
+header{
+    background-image: url("../img/zparkBanner.png"); 
+    background-repeat: no-repeat;
+    --background-size: 80% ;
+    background-position: center;
+    height: 300px;
+    border-style: solid;
+    border-color: #eac67a;
+    border-width: 1em;
+    border-radius: 1em;
+}
+
+main {
+
+    display: grid;
+    grid-template-columns: auto auto ;
+    grid-column-gap: 0.8em ;
+    grid-row-gap: 0.8em ;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #984B43;
+     border-style: solid;
+    border-color: #eac67a;
+    border-width: 1em;
+    border-radius: 1em;
+    
+}
+
+
+
+h2.intro{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: auto;
+    text-align: center;
+    color: lightgray;
+    font-family: "Titillium";
+
+    
+}
+
+div.floor, div.place, div.numberFloor, div.numberSpot {
+    background-color: #ff999b;
+    padding: 1em;
+    border-style: solid;
+
+/*    border-color: none;
+
+    border-width: 0.4em;*/
+    border-radius: 0.4em;
+    text-align: center;
+    font-size: 2em;
+    
+    
+}
