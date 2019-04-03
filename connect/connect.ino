@@ -29,9 +29,9 @@
 // Watson IoT connection details
 #define MQTT_HOST "4p0ycs.messaging.internetofthings.ibmcloud.com"
 #define MQTT_PORT 1883
-#define MQTT_DEVICEID "d:4p0ycs:MQTT-client:desktop-client"
+#define MQTT_DEVICEID "d:4p0ycs:MQTT-client:arduino_test"
 #define MQTT_USER "use-token-auth"
-#define MQTT_TOKEN "W!o-ef8i0Sq9SAtEGP"
+#define MQTT_TOKEN "testtoken"
 #define MQTT_TOPIC "iot-2/evt/status/fmt/json"
 #define MQTT_TOPIC_DISPLAY "iot-2/cmd/update/fmt/json"
 
