@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 def clearPins():
+    global ControlPin
     for pin in range (4):
         GPIO.output(ControlPin[pin], 0)
 
@@ -30,8 +31,8 @@ def run():
     ControlPin = [5,6,13,19]
 
     for pin in ControlPin:
-       GPIO.setup (pin, GPIO.OUT)
-       GPIO.output (pin, 0)
+       GPIO.setup(pin, GPIO.OUT)
+       GPIO.output(pin, 0)
        
     seg = [ [1,0,0,0],
             [1,1,0,0],
@@ -50,4 +51,4 @@ def run():
 
     clearPins()
 
-    GPIO.cleanup()
+#    GPIO.cleanup()

@@ -7,5 +7,5 @@ def open():
 
 def refresh():
     global driver
-    driver.refresh()
+    driver.executeScript("getEmptySpots();")
 
