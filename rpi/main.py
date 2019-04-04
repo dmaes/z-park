@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+from gpiozero import Button
+
 import display
 import entrance
 

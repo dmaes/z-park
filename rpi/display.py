@@ -1,5 +1,4 @@
 from selenium import webdriver
-from gpiozero import Button
 from time import sleep
 
 driver = None
