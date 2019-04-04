@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from gpiozero import Button
+from time import sleep
 
 import display
 import entrance
