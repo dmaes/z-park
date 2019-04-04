@@ -1,0 +1,120 @@
+[
+    {
+        "id": "8c453b60.27eb78",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d9522584.a91db",
+        "type": "debug",
+        "z": "8c453b60.27eb78",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 570,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a2d57733.47252",
+        "type": "function",
+        "z": "8c453b60.27eb78",
+        "name": "add_to_parking",
+        "func": "let initParking = {\n    'locations':{}\n};\n\nlet parking = global.get('parking') || initParking;\nparking.locations[msg.payload.location] = msg.payload;\nglobal.set('parking', parking);\nmsg.payload = parking;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "d9522584.a91db"
+            ]
+        ]
+    },
+    {
+        "id": "1d56349c.0d8743",
+        "type": "http in",
+        "z": "8c453b60.27eb78",
+        "name": "GET_empty_spots",
+        "url": "/parking/api/empty_spots",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "4641b2df.586734"
+            ]
+        ]
+    },
+    {
+        "id": "4641b2df.586734",
+        "type": "function",
+        "z": "8c453b60.27eb78",
+        "name": "get_empty_spots",
+        "func": "let res = {\n    'empty_places': []\n};\nlet parking = global.get('parking');\nfor (var place in parking.locations) {\n    if(parking.locations[place].available) {\n        res.empty_places.push(place);\n    }\n}\nmsg.payload = res;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 180,
+        "wires": [
+            [
+                "d9522584.a91db",
+                "2eba2462.e73e8c"
+            ]
+        ]
+    },
+    {
+        "id": "2eba2462.e73e8c",
+        "type": "http response",
+        "z": "8c453b60.27eb78",
+        "name": "empty_spots",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "application/json"
+        },
+        "x": 590,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d5793da1.232bf8",
+        "type": "ibmiot in",
+        "z": "8c453b60.27eb78",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "arduino_test",
+        "applicationId": "",
+        "deviceType": "MQTT-device",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "MQTT-devices",
+        "service": "registered",
+        "allDevices": true,
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "a2d57733.47252"
+            ]
+        ]
+    }
+]
