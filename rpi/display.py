@@ -1,13 +1,11 @@
 from selenium import webdriver
-from gpiozero import Button
-from time import sleep
 
-driver = webdriver.Chrome()
-driver.get("https://z-park.eu-gb.mybluemix.net/parking/api/empty_spots")
+def open():
+    global driver
+    driver = webdriver.Chrome()
+    driver.get("https://z-park.eu-gb.mybluemix.net/parking/welcome")
 
-btn = Button(2)
-while True:
-    if btn.is_pressed:
-        driver.refresh()
-    sleep(0.1)
+def refresh():
+    global driver
+    driver.execute_script("getEmptySpots();")
 
