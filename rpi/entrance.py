@@ -6,12 +6,16 @@ def clearPins():
         GPIO.output(ControlPin[pin], 0)
 
 def up():
+    global ControlPin
+    global seg
     for i in range (128):
        for halfstep in range (8):
              for pin in range (4):
                 GPIO.output (ControlPin[pin], seg[halfstep][pin])
                 time.sleep (0.001)
 def down():
+    global ControlPin
+    global seg
     for i in range (128):
        for halfstep in reversed(range (8)):
              for pin in reversed(range (4)):
@@ -19,6 +23,8 @@ def down():
                 time.sleep (0.001)
 
 def run():
+    global ControlPin
+    global seg
     GPIO.setmode (GPIO.BCM)
 
     ControlPin = [5,6,13,19]
