@@ -178,7 +178,7 @@ void checkDistanceRight() {
   }
 
   if (oldStatus != statusRight) {
-    sendParkingStatus("right", statusRight);
+    sendParkingStatus(2, statusRight);
   }
  
 }
@@ -221,7 +221,7 @@ void checkDistanceLeft() {
   delay(100);
 
   if (oldStatus != statusLeft) {
-    sendParkingStatus("left", statusLeft);
+    sendParkingStatus(1, statusLeft);
   }
 }
 
