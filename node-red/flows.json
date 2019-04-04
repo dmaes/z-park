@@ -1,5 +1,154 @@
 [
     {
+        "id": "8c453b60.27eb78",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d9522584.a91db",
+        "type": "debug",
+        "z": "8c453b60.27eb78",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 570,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a2d57733.47252",
+        "type": "function",
+        "z": "8c453b60.27eb78",
+        "name": "add_to_parking",
+        "func": "let initParking = {\n    'locations':{}\n};\n\nlet parking = global.get('parking') || initParking;\nparking.locations[msg.payload.location] = msg.payload;\nglobal.set('parking', parking);\nmsg.payload = parking;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "d9522584.a91db"
+            ]
+        ]
+    },
+    {
+        "id": "1d56349c.0d8743",
+        "type": "http in",
+        "z": "8c453b60.27eb78",
+        "name": "GET_empty_spots",
+        "url": "/parking/api/empty_spots",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "4641b2df.586734"
+            ]
+        ]
+    },
+    {
+        "id": "4641b2df.586734",
+        "type": "function",
+        "z": "8c453b60.27eb78",
+        "name": "get_empty_spots",
+        "func": "let parking_map = {\n    1: {\n        'floor': 0,\n        'place': 'A1'\n    },\n    2: {\n        'floor': 0,\n        'place': 'A2'\n    }\n}\nlet res = {\n    'empty_places': []\n};\nlet parking = global.get('parking');\nfor (var place in parking.locations) {\n    if(parking.locations[place].available) {\n        res.empty_places.push(parking_map[place]);\n    }\n}\nres.suggested = res.empty_places[0];\nres.empty_places.splice(0,1);\nmsg.payload = res;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 180,
+        "wires": [
+            [
+                "d9522584.a91db",
+                "2eba2462.e73e8c"
+            ]
+        ]
+    },
+    {
+        "id": "2eba2462.e73e8c",
+        "type": "http response",
+        "z": "8c453b60.27eb78",
+        "name": "empty_spots",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+        "x": 590,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d5793da1.232bf8",
+        "type": "ibmiot in",
+        "z": "8c453b60.27eb78",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "arduino_test",
+        "applicationId": "",
+        "deviceType": "MQTT-device",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "MQTT-devices",
+        "service": "registered",
+        "allDevices": true,
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "a2d57733.47252"
+            ]
+        ]
+    },
+    {
+        "id": "62ad08e0.f2e03",
+        "type": "http in",
+        "z": "8c453b60.27eb78",
+        "name": "GET_welcome",
+        "url": "/parking/welcome",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "17d8573e.dfdeb1"
+            ]
+        ]
+    },
+    {
+        "id": "bba93d6b.59e7b8",
+        "type": "http response",
+        "z": "8c453b60.27eb78",
+        "name": "welcome",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "text/html"
+        },
+        "x": 480,
+        "y": 260,
+        "wires": []
+    },
+    {
         "id": "17d8573e.dfdeb1",
         "type": "template",
         "z": "8c453b60.27eb78",
