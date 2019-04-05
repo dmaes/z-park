@@ -169,7 +169,7 @@ void checkDistanceRight() {
   Serial.println(distanceRight);
   delay(100);
  
-  if (distanceRight > 10) {
+  if (distanceRight > 13) {
     statusRight = true; 
     setRechts(0,255,0);
   }else {
@@ -208,7 +208,7 @@ void checkDistanceLeft() {
   // Calculating the distance
   distanceLeft = durationLeft * 0.034/2;
  
-  if (distanceLeft > 10) {
+  if (distanceLeft > 13) {
     statusLeft = true;
     setLinks(0,255,0);
   }else {
